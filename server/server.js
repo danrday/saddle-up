@@ -6,7 +6,7 @@ const session = require('express-session')
 const RedisStore = require('connect-redis')(session)
 const {red} = require('chalk')
 
-const routes = require('./routes/')
+const routes = require('./routes')
 const { connect } = require('./db/database')
 
 const app = express()
@@ -20,7 +20,7 @@ app.set('port', port)
 
 // middlewares
 
-app.use(express.static('client'))
+app.use(express.static('temporary'))
 
 app.use(session({
   store: new RedisStore({
