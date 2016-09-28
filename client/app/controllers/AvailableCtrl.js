@@ -2,13 +2,15 @@
 
 app.controller('AvailableCtrl', function($scope, $http, $location, UserFactory) {
 
+  const currentUser = UserFactory.getCurrentUsername();
+  /////////////////////////////////////////
+
   /////////////////////////////////////////
   //Load users to page
   const loadPage = () => {
-    let test = UserFactory.getCurrentUsername();
-    console.log("Test test", test);
     UserFactory.loadUserList()
     .then((list) => console.log("Test", list.data));
+
   //     //Filter the users and do not display disliked users for the current user
   //     console.log("Test list", list);
   //     // list.forEach((each) => {
@@ -24,8 +26,9 @@ app.controller('AvailableCtrl', function($scope, $http, $location, UserFactory) 
 
 
   /////////////////////////////////////////
-  $scope.likeUser = () => {
-    console.log("Liked user");
+  $scope.likeUser = (user) => {
+    const likedUser = user.username;
+    console.log("Liked", likedUser);
     // $http
     // .put('api/like/:username/:likedusername')
     // .then(() => {
@@ -34,8 +37,9 @@ app.controller('AvailableCtrl', function($scope, $http, $location, UserFactory) 
     // .catch(console.error)
   };
 
-  $scope.dislikeUser = () => {
-    console.log("Disliked user");
+  $scope.dislikeUser = (user) => {
+    const dislikedUser = user.username;
+    console.log("Disliked", dislikedUser);
     // $http
     // .put('api/dislike/:username/:likedusername')
     // .then(() => {

@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('LoginCtrl', function($scope, $http, UserFactory) {
+app.controller('LoginCtrl', function($scope, $http, $location, UserFactory) {
 
 	$scope.login = function() {
 		const user = {
@@ -12,6 +12,8 @@ app.controller('LoginCtrl', function($scope, $http, UserFactory) {
 		UserFactory.setCurrentUsername($scope.username);
 
 		console.log(user)
+
+		$location.path('/');
 
 		// $http
 		// 	.post('api/login', user)
