@@ -1,0 +1,72 @@
+[
+  {
+  "species": "stud",
+  "seeking": "steed",
+  "username": "studmuffin",
+  "email": "studmuffin@geocities.com",
+  "password": "studmuffin300",
+  "description": "stud seeking steed",
+  "location": "el paso",
+  "dislikedusers": [
+    "boringsteed",
+    "boringsteed",
+    "boringsteed44"
+  ],
+  "likedusers": [
+    "steedbutter",
+    "asdf",
+    "asdf"
+  ]
+},
+  {
+  "species": "steed",
+  "seeking": "stud",
+  "username": "steedmuffin",
+  "email": "steedmuffin@geocities.com",
+  "password": "steedy",
+  "description": "steed seeking stud",
+  "location": "lubbock",
+  "dislikedusers": [
+    "boringsteed",
+    "boringsteed"
+  ],
+  "likedusers": [
+    "steedbutter"
+  ]
+},
+  {
+  "species": "stud",
+  "seeking": "steed",
+  "username": "Tex",
+  "email": "Tex@Texas.com",
+  "password": "tex",
+  "description": "The studly-est stud in texas",
+  "location": "el paso",
+  "dislikedusers": [
+    "boringsteed"
+  ],
+  "likedusers": []
+},
+  {
+  "species": "steed",
+  "seeking": "stud",
+  "username": "Seabiscuit",
+  "email": "Seabiscuit@geocities.com",
+  "password": "Seabiscuit#1",
+  "description": "Horses cant type on a keyboard",
+  "location": "Dallas",
+  "dislikedusers": [],
+  "likedusers": []
+},
+  {
+  "species": "stud",
+  "seeking": "steed",
+  "username": "Studley",
+  "email": "Studley@geocities.com",
+  "password": "Studley",
+  "description": "Studley seeking steed",
+  "location": "college station",
+  "dislikedusers": [],
+  "likedusers": []
+}
+]
