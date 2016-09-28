@@ -3,6 +3,17 @@
 app.factory('UserFactory', function($http, $q) {
 
   /////////////////////////////////////////
+  //Save current user
+  let currentUser;
+
+  const setCurrentUsername = (name) => {
+    currentUser = name;
+  };
+
+  const getCurrentUsername = () => currentUser;
+  /////////////////////////////////////////
+
+  /////////////////////////////////////////
   //Get all users from the db
   const loadUserList = function() {
 
@@ -42,6 +53,6 @@ app.factory('UserFactory', function($http, $q) {
   /////////////////////////////////////////
 
   /////////////////////////////////////////
-  return { loadUserList, getCurrentUser };
+  return { loadUserList, getCurrentUser, setCurrentUsername, getCurrentUsername };
 
 });

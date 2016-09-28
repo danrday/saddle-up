@@ -4,9 +4,11 @@ app.controller('AvailableCtrl', function($scope, $http, $location, UserFactory) 
 
   /////////////////////////////////////////
   //Load users to page
-  UserFactory.loadUserList()
-  .then((list) => console.log("Test", list.data));
-
+  const loadPage = () => {
+    let test = UserFactory.getCurrentUsername();
+    console.log("Test test", test);
+    UserFactory.loadUserList()
+    .then((list) => console.log("Test", list.data));
   //     //Filter the users and do not display disliked users for the current user
   //     console.log("Test list", list);
   //     // list.forEach((each) => {
@@ -16,12 +18,14 @@ app.controller('AvailableCtrl', function($scope, $http, $location, UserFactory) 
   //     // })
   //   });
   // };
+  };
+  loadPage();
   /////////////////////////////////////////
 
 
   /////////////////////////////////////////
   $scope.likeUser = () => {
-    console.log("Liked");
+    console.log("Liked user");
     // $http
     // .put('api/like/:username/:likedusername')
     // .then(() => {
