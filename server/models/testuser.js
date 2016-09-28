@@ -10,5 +10,7 @@ module.exports = mongoose.model('user', {
       email: String,
       password: String,
       description: String,
-      location: String
+      location: String,
+      likedusers: Array,
+      dislikedusers: Array
 })

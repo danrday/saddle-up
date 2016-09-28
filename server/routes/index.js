@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt')
 
 const router = Router()
 const User = require('../models/user')
-const TestUser = require('../models/testuser')
+// const TestUser = require('../models/testuser')
 
 router.get('/', (req, res) =>
   res.render('index')
@@ -13,7 +13,7 @@ router.get('/', (req, res) =>
 
 
 router.get('/api/test', (req, res, err) => {
-  TestUser
+  User
   .find()
   .then(users => console.log(users))
   .catch(err)
@@ -22,9 +22,9 @@ router.get('/api/test', (req, res, err) => {
 
 router.get('/api/profile/:username', (req, res, err) => {
   const Username = req.params.username
-  TestUser
+  User
   .findOne({ username: Username })
-  .then(user => 
+  .then(user =>
   res.json(user))
   .catch(err)
 })
