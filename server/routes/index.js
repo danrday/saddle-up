@@ -29,6 +29,17 @@ router.get('/api/profile/:username', (req, res, err) => {
   .catch(err)
 })
 
+router.put('/api/available/:username/:likedusername', (req, res, err) => {
+  const Username = req.params.username
+  const LikedUser = req.params.likedusername
+  console.log("USERNAME, LIKEDUSER", Username, LikedUser)
+  User
+  .findOneAndUpdate({ username: Username }, { $push: { likedusers: LikedUser }})
+  .then(user =>
+  res.json(user))
+  .catch(err)
+})
+
 
 router.get('/login', (req, res) =>
   res.render('login')
