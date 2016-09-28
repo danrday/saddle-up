@@ -5,26 +5,49 @@ const bcrypt = require('bcrypt')
 
 const router = Router()
 const User = require('../models/user')
-const TestUser = require('../models/testuser')
+// const TestUser = require('../models/testuser')
 
 router.get('/', (req, res) =>
   res.render('index')
 )
 
 
-router.get('/api/test', (req, res, err) => {
-  TestUser
+router.get('/api/allusers', (req, res, err) => {
+  User
   .find()
-  .then(users => console.log(users))
+  .then(users => res.json(users))
   .catch(err)
 })
 
 
-router.get('/api/profile/:username', (req, res, err) => {
+router.get('/api/:username', (req, res, err) => {
   const Username = req.params.username
-  TestUser
+  User
   .findOne({ username: Username })
-  .then(user => 
+  .then(user =>
+  res.json(user))
+  .catch(err)
+})
+
+router.put('/api/like/:username/:likedusername', (req, res, err) => {
+  const Username = req.params.username
+  const LikedUser = req.params.likedusername
+  console.log("USERNAME, LIKEDUSER", Username, LikedUser)
+  User
+  .findOneAndUpdate({ username: Username }, { $push: { likedusers: LikedUser }})
+  .then(user =>
+  res.json(user))
+  .catch(err)
+})
+
+
+router.put('/api/dislike/:username/:dislikedusername', (req, res, err) => {
+  const Username = req.params.username
+  const DislikedUser = req.params.dislikedusername
+  console.log("USERNAME, LIKEDUSER", Username, DislikedUser)
+  User
+  .findOneAndUpdate({ username: Username }, { $push: { dislikedusers: DislikedUser }})
+  .then(user =>
   res.json(user))
   .catch(err)
 })
