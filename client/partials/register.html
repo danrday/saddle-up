@@ -15,42 +15,42 @@
 	  </div>
 	</div>
 	<div class="row">
-	  <div class="input-field col s12">
-	    <select>
-	      <option value="" disabled selected>I am a</option>
-	      <option value="1">Stud</option>
-	      <option value="2">Steed</option>
-	    </select>
-	    <label>Species</label>
-	  </div>
+		<div class="col s12">
+		  <label>Species</label>
+			<select class="browser-default" ng-model="species">
+				<option disabled selected value="">I am a</option>
+		    <option>Stud</option>
+		    <option>Steed</option>
+			</select>
+		</div>	
 	</div>
 	<div class="row">
-	  <div class="input-field col s12">
-	    <select>
-	      <option value="" disabled selected>Seeking a</option>
-	      <option value="1">Stud</option>
-	      <option value="2">Steed</option>
-	    </select>
-	    <label>Seeking</label>
-	  </div>
+		<div class="col s12">
+		  <label>Seeking</label>
+			<select class="browser-default" ng-model="seeking">
+				<option disabled selected value="">Seeking a</option>
+		    <option>Stud</option>
+		    <option>Steed</option>
+			</select>
+		</div>
 	</div>
 	<div class="row">
-	  <div class="input-field col s12">
-	    <select>
-	      <option value="" disabled selected>I live in</option>
-	      <option value="1">County 1</option>
-	      <option value="2">County 2</option>
-	      <option value="2">County 3</option>
-	      <option value="2">County 4</option>
-	    </select>
-	    <label>Location</label>
-	  </div>
+		<div class="col s12">
+		  <label>Location</label>
+			<select class="browser-default" ng-model="location">
+				<option disabled selected value="">I live in</option>
+		    <option>County 1</option>
+		    <option>County 2</option>
+		    <option>County 3</option>
+		    <option>County 4</option>
+			</select>
+		</div>
 	</div>
 	<div class="row">
     <form class="col s12">
       <div class="row">
         <div class="input-field col s12">
-          <textarea id="textarea1" class="materialize-textarea"></textarea>
+          <textarea id="textarea1" class="materialize-textarea" ng-model="description"></textarea>
           <label for="textarea1">Tell Us About Yourself</label>
         </div>
       </div>
