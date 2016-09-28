@@ -1,0 +1,62 @@
+<div>
+	<div class="row">
+		<h1 class="center-align">Register Here</h1>
+	</div>
+	<div class="row">
+	  <div class="input-field col s12">
+	    <input id="username" type="text" ng-model="username">
+	    <label for="username">Username</label>
+	  </div>
+	</div>
+	<div class="row">
+	  <div class="input-field col s12">
+	    <input id="password" type="password" class="validate" ng-model="password">
+	    <label for="password">Password</label>
+	  </div>
+	</div>
+	<div class="row">
+	  <div class="input-field col s12">
+	    <select>
+	      <option value="" disabled selected>I am a</option>
+	      <option value="1">Stud</option>
+	      <option value="2">Steed</option>
+	    </select>
+	    <label>Species</label>
+	  </div>
+	</div>
+	<div class="row">
+	  <div class="input-field col s12">
+	    <select>
+	      <option value="" disabled selected>Seeking a</option>
+	      <option value="1">Stud</option>
+	      <option value="2">Steed</option>
+	    </select>
+	    <label>Seeking</label>
+	  </div>
+	</div>
+	<div class="row">
+	  <div class="input-field col s12">
+	    <select>
+	      <option value="" disabled selected>I live in</option>
+	      <option value="1">County 1</option>
+	      <option value="2">County 2</option>
+	      <option value="2">County 3</option>
+	      <option value="2">County 4</option>
+	    </select>
+	    <label>Location</label>
+	  </div>
+	</div>
+	<div class="row">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s12">
+          <textarea id="textarea1" class="materialize-textarea"></textarea>
+          <label for="textarea1">Tell Us About Yourself</label>
+        </div>
+      </div>
+    </form>
+  </div>
+	<div class="row">
+		<a class="waves-effect waves-light btn" ng-click="login()">Submit</a>
+	</div>
+</div>
