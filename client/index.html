@@ -3,9 +3,11 @@
 <head>
 	<title>Saddle Up</title>
 	<link rel="stylesheet" type="text/css" href="lib/materialize/dist/css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
 	<div ng-app="SaddleUp">
+		<div ng-include="'partials/navbar.html'"></div>
 		<div class="container">
 			<div ng-view></div>
 		</div>
@@ -15,7 +17,7 @@
 	<script src="lib/jquery/dist/jquery.min.js"></script>
 	<script src="lib/materialize/dist/js/materialize.min.js"></script>
 	<script src="lib/angular-route/angular-route.min.js"></script>
-	<!-- Main JS --> 
+	<!-- Main JS -->
 	<script src="app/main.js"></script>
 	<!-- Controllers -->
 	<script src="app/controllers/AvailableCtrl.js"></script>
