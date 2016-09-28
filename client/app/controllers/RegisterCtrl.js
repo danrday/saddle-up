@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('RegisterCtrl', function($scope, $http) {
+app.controller('RegisterCtrl', function($scope, $http, $location) {
 
 	$(document).ready(function() {
 		$('select').material_select()
@@ -11,16 +11,22 @@ app.controller('RegisterCtrl', function($scope, $http) {
 		username: $scope.username,
 		password: $scope.password,
 		location: $scope.location,
+		species:  $scope.species,
+		seeking:  $scope.seeking,
 		description: $scope.description,
-		species: $scope.species,
-		seeking: $scope.seeking
 	}
 
 	console.log(user)
 
 	$http
 		.post('api/register', user)
-		.then(() => {})
+		.then((user) => {
+			if(user) {
+				$location.path('/login')
+			} else {
+				$location.path('/register')
+			}
+		})
 		.catch(console.error)
 	}
 
