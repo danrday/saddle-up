@@ -1,0 +1,21 @@
+{
+  "_id": "57ec0ab3ecc687191f79bb83",
+  "species": "stud",
+  "seeking": "steed",
+  "username": "studmuffin",
+  "email": "studmuffin@geocities.com",
+  "password": "studmuffin300",
+  "description": "stud seeking steed",
+  "location": "el paso",
+  "dislikedusers": [
+    "boringsteed",
+    "boringsteed",
+    "boringsteed44",
+    "boringsteed44"
+  ],
+  "likedusers": [
+    "steedbutter",
+    "asdf",
+    "asdf"
+  ]
+}
