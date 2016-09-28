@@ -4,6 +4,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const RedisStore = require('connect-redis')(session)
+const {red} = require('chalk')
 
 const routes = require('./routes/')
 const { connect } = require('./db/database')
@@ -13,18 +14,19 @@ const app = express()
 const port = process.env.PORT || 3000
 app.set('port', port)
 
-// pug configuration
-app.set('view engine', 'pug')
-app.locals.company = 'app.locals.company'
-app.locals.errors = {} // errors & body added to avoid guard statements
-app.locals.body = {} // i.e. value=(body && body.name) vs. value=body.name
+// app.locals.company = 'app.locals.company'
+// app.locals.errors = {} // errors & body added to avoid guard statements
+// app.locals.body = {} // i.e. value=(body && body.name) vs. value=body.name
 
 // middlewares
+
+app.use(express.static('client'))
+
 app.use(session({
   store: new RedisStore({
     url: process.env.REDIS_URL || 'redis://localhost:6379'
   }),
-  secret: 'pizzadescottsupersecretkey'
+  secret: 'saddleupsecretsalt'
 }))
 
 app.use((req, res, next) => {
