@@ -1,0 +1,23 @@
+{
+  "name": "saddle-up",
+  "description": "",
+  "main": "/server/server.js",
+  "authors": [
+    "Dominic Serrano <dmsrojo@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/danrday/saddle-up",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "client/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-route": "^1.5.8",
+    "materialize": "^0.97.7",
+    "angular": "^1.5.8"
+  }
+}
