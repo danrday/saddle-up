@@ -1,62 +1,64 @@
-<div>
-	<div class="row">
-		<h1 class="center-align">Register Here</h1>
-	</div>
-	<div class="row">
-	  <div class="input-field col s12">
-	    <input id="username" type="text" ng-model="username">
-	    <label for="username">Username</label>
-	  </div>
-	</div>
-	<div class="row">
-	  <div class="input-field col s12">
-	    <input id="password" type="password" class="validate" ng-model="password">
-	    <label for="password">Password</label>
-	  </div>
-	</div>
-	<div class="row">
-		<div class="col s12">
-		  <label>Species</label>
-			<select class="browser-default" ng-model="species">
-				<option disabled selected value="">I am a</option>
-		    <option>Stud</option>
-		    <option>Steed</option>
-			</select>
-		</div>	
-	</div>
-	<div class="row">
-		<div class="col s12">
-		  <label>Seeking</label>
-			<select class="browser-default" ng-model="seeking">
-				<option disabled selected value="">Seeking a</option>
-		    <option>Stud</option>
-		    <option>Steed</option>
-			</select>
+<div class="container">
+	<div>
+		<div class="row">
+			<h1 class="center-align">Register Here</h1>
 		</div>
-	</div>
-	<div class="row">
-		<div class="col s12">
-		  <label>Location</label>
-			<select class="browser-default" ng-model="location">
-				<option disabled selected value="">I live in</option>
-		    <option>County 1</option>
-		    <option>County 2</option>
-		    <option>County 3</option>
-		    <option>County 4</option>
-			</select>
+		<div class="row">
+		  <div class="input-field col s12">
+		    <input id="username" type="text" ng-model="username">
+		    <label for="username">Username</label>
+		  </div>
 		</div>
-	</div>
-	<div class="row">
-    <form class="col s12">
-      <div class="row">
-        <div class="input-field col s12">
-          <textarea id="textarea1" class="materialize-textarea" ng-model="description"></textarea>
-          <label for="textarea1">Tell Us About Yourself</label>
-        </div>
-      </div>
-    </form>
-  </div>
-	<div class="row">
-		<a class="waves-effect waves-light btn" ng-click="login()">Submit</a>
+		<div class="row">
+		  <div class="input-field col s12">
+		    <input id="password" type="password" class="validate" ng-model="password">
+		    <label for="password">Password</label>
+		  </div>
+		</div>
+		<div class="row">
+			<div class="col s12">
+			  <label>Species</label>
+				<select class="browser-default" ng-model="species">
+					<option disabled selected value="">I am a</option>
+			    <option>Stud</option>
+			    <option>Steed</option>
+				</select>
+			</div>	
+		</div>
+		<div class="row">
+			<div class="col s12">
+			  <label>Seeking</label>
+				<select class="browser-default" ng-model="seeking">
+					<option disabled selected value="">Seeking a</option>
+			    <option>Stud</option>
+			    <option>Steed</option>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s12">
+			  <label>Location</label>
+				<select class="browser-default" ng-model="location">
+					<option disabled selected value="">I live in</option>
+			    <option>County 1</option>
+			    <option>County 2</option>
+			    <option>County 3</option>
+			    <option>County 4</option>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+	    <form class="col s12">
+	      <div class="row">
+	        <div class="input-field col s12">
+	          <textarea id="textarea1" class="materialize-textarea" ng-model="description"></textarea>
+	          <label for="textarea1">Tell Us About Yourself</label>
+	        </div>
+	      </div>
+	    </form>
+	  </div>
+		<div class="row">
+			<a class="waves-effect waves-light btn" ng-click="login()">Submit</a>
+		</div>
 	</div>
 </div>
