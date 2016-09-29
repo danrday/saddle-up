@@ -14,14 +14,16 @@ app.controller('RegisterCtrl', function($scope, $http, $location) {
 		species:  $scope.species,
 		seeking:  $scope.seeking,
 		description: $scope.description,
+		confirmation: $scope.confirmation,
 	}
 
 	console.log(user)
 
 	$http
-		.post('api/register', user)
-		.then((user) => {
-			if(user) {
+		.post('/register', user)
+		.then((data) => {
+			console.log(data)
+			if(data) {
 				$location.path('/login')
 			} else {
 				$location.path('/register')

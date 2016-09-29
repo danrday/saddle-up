@@ -85,13 +85,13 @@ router.post('/register', ({ body: { username, password, confirmation } }, res, e
 
 // login guard middleware
 //above all login routes
-router.use((req, res, next) => {
-	if (req.session.username) {
-		next()
-	} else {
-		res.status(400).send({ code: 400, status: 'No current sesssion - please login' })
-	}
-})
+// router.use((req, res, next) => {
+// 	if (req.session.username) {
+// 		next()
+// 	} else {
+// 		res.status(400).send({ code: 400, status: 'No current sesssion - please login' })
+// 	}
+// })
 
 router.get('/api/allusers', (req, res, err) => {
 	User
