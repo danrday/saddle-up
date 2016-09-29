@@ -32,9 +32,7 @@ app.controller('AvailableCtrl', function($scope, $http, $location, UserFactory) 
             if($scope.currentUser.dislikedusers.length === 0 ) {
               $scope.userList = data
             } else {
-              
-            // console.log('returned user list', data)
-            // console.log($scope.currentUser)
+
             // ^^^^^^^^^^^^
             // returned entire user list from database as "data"
 

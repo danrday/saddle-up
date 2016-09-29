@@ -11,8 +11,6 @@ const User = require('../models/user')
 //   res.render('index')
 // )
 
-
-
 // router.get('/login', (req, res) =>
 //   res.render('login')
 // )
@@ -125,7 +123,6 @@ router.put('/api/like/:username/:likedusername', (req, res, err) => {
 	.catch(err)
 })
 
-
 router.put('/api/dislike/:username/:dislikedusername', (req, res, err) => {
 	const Username = req.params.username
 	const DislikedUser = req.params.dislikedusername
@@ -136,12 +133,6 @@ router.put('/api/dislike/:username/:dislikedusername', (req, res, err) => {
 	res.json(user))
 	.catch(err)
 })
-
-
-
-
-
-
 
 // router.get('/logout', (req, res) =>
 //   res.render('logout', { page: 'Logout'})
