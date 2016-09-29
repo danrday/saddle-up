@@ -11,11 +11,13 @@ const User = require('../models/user')
 //   res.render('index')
 // )
 
-
-
 // router.get('/login', (req, res) =>
 //   res.render('login')
 // )
+
+router.get('/currentUser', (req, res, err) => {
+	res.json({username: req.session.username})
+})
 
 router.post('/login', ({ session, body: { username, password } }, res, err) => {
 	User.findOne({ username })
@@ -26,7 +28,7 @@ router.post('/login', ({ session, body: { username, password } }, res, err) => {
 						if (err) {
 							reject(err)
 						} else {
-							resolve(matches)
+							resolve(user)
 						}
 					})
 				})
@@ -34,10 +36,10 @@ router.post('/login', ({ session, body: { username, password } }, res, err) => {
 				res.json({ msg: 'User name does not exist in our system' })
 			}
 		})
-		.then((matches) => {
-			if (matches) {
+		.then((user) => {
+			if (user) {
 				session.username = username
-				// res.redirect('/')
+				res.json({user: user.username})
 			} else {
 				res.json({ msg: 'Password does not match' })
 			}
@@ -49,7 +51,7 @@ router.post('/login', ({ session, body: { username, password } }, res, err) => {
 //   res.render('register')
 // )
 
-router.post('/register', ({ body: { username, password, confirmation } }, res, err) => {
+router.post('/register', ({ body: { username, email, password, location, species, seeking, description, confirmation } }, res, err) => {
 	if (password === confirmation) {
 		User.findOne({ username })
 			.then(user => {
@@ -67,7 +69,7 @@ router.post('/register', ({ body: { username, password, confirmation } }, res, e
 					})
 				}
 			})
-			.then(hash => User.create({ username, password: hash }))
+			.then(hash => User.create({ username, email, password: hash, location, species, seeking, description }))
 			.then(() => res.json({ msg: 'User created' }))
 			.catch(err)
 	} else {
@@ -121,7 +123,6 @@ router.put('/api/like/:username/:likedusername', (req, res, err) => {
 	.catch(err)
 })
 
-
 router.put('/api/dislike/:username/:dislikedusername', (req, res, err) => {
 	const Username = req.params.username
 	const DislikedUser = req.params.dislikedusername
@@ -132,12 +133,6 @@ router.put('/api/dislike/:username/:dislikedusername', (req, res, err) => {
 	res.json(user))
 	.catch(err)
 })
-
-
-
-
-
-
 
 // router.get('/logout', (req, res) =>
 //   res.render('logout', { page: 'Logout'})

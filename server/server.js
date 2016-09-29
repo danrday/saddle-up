@@ -29,10 +29,10 @@ app.use(session({
   secret: 'saddleupsecretsalt'
 }))
 
-app.use((req, res, next) => {
-  app.locals.email = req.session.email
-  next()
-})
+// app.use((req, res, next) => {
+//   app.locals.email = req.session.email
+//   next()
+// })
 
 // app.use(({ method, url, headers: { 'user-agent': agent } }, res, next) => {
 //   const timeStamp = new Date()

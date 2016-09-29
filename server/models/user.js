@@ -8,7 +8,6 @@ module.exports = mongoose.model('user', {
   email: {
     type: String,
     lowercase: true,
-    required: true,
     match: [HTML5_EMAIL_REGEX, 'Please enter a valid email address'],
     index: { unique: true },
   },
