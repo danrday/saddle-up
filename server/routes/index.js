@@ -17,10 +17,13 @@ const User = require('../models/user')
 //   res.render('login')
 // )
 
+router.get('/currentUser', (req, res, err) => {
+	res.json({username: req.session.username})
+})
+
 router.post('/login', ({ session, body: { username, password } }, res, err) => {
 	User.findOne({ username })
 		.then(user => {
-			console.log("USER:", user)
 			if (user) {
 				return new Promise((resolve, reject) => {
 					bcrypt.compare(password, user.password, (err, matches) => {
@@ -32,17 +35,13 @@ router.post('/login', ({ session, body: { username, password } }, res, err) => {
 					})
 				})
 			} else {
-				console.log("USER")
 				res.json({ msg: 'User name does not exist in our system' })
 			}
 		})
 		.then((user) => {
 			if (user) {
 				session.username = username
-				console.log("SESSION.USERNAME", session.username)
-				console.log("USER", user)
 				res.json({user: user.username})
-				// res.redirect('/')
 			} else {
 				res.json({ msg: 'Password does not match' })
 			}
