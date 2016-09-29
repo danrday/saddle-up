@@ -18,7 +18,7 @@ app.factory('UserFactory', function($http, $q) {
   const loadUserList = function() {
 
     return $q((resolve, reject) => {
-      $http.get('data/user.json')
+      $http.get('api/allusers')
       .then((list) => {
         if ( list ) {
           resolve(list);
@@ -35,10 +35,10 @@ app.factory('UserFactory', function($http, $q) {
 
   /////////////////////////////////////////
   //Get the current users obj from db
-  const getCurrentUser = function() {
+  const getCurrentUser = function(username) {
 
     return $q((resolve, reject) => {
-      $http.get('api/:username')
+      $http.get(`api/${username}`)
       .then((list) => {
         if ( list ) {
           resolve(list);
