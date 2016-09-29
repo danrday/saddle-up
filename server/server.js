@@ -20,7 +20,7 @@ app.set('port', port)
 
 // middlewares
 
-app.use(express.static('temporary'))
+app.use(express.static('client'))
 
 app.use(session({
   store: new RedisStore({
