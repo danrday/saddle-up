@@ -16,8 +16,12 @@ app.controller('LoginCtrl', function($scope, $http, $location, UserFactory) {
 		// $location.path('/');
 
 		$http
-			.post('/login', user)
-			.then(() => $location.path('/'))
+			 .post('/login', user)
+			 .then((data) => {
+				 UserFactory.setCurrentUsername(data.data.user);
+					console.log(UserFactory.getCurrentUsername())
+					 // $location.path('/')
+			 })
 			.catch(console.error)
 
 	}

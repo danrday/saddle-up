@@ -27,7 +27,7 @@ router.post('/login', ({ session, body: { username, password } }, res, err) => {
 						if (err) {
 							reject(err)
 						} else {
-							resolve(matches)
+							resolve(user)
 						}
 					})
 				})
@@ -36,11 +36,12 @@ router.post('/login', ({ session, body: { username, password } }, res, err) => {
 				res.json({ msg: 'User name does not exist in our system' })
 			}
 		})
-		.then((matches) => {
-			if (matches) {
+		.then((user) => {
+			if (user) {
 				session.username = username
 				console.log("SESSION.USERNAME", session.username)
-				res.json({msg: matches})
+				console.log("USER", user)
+				res.json({user: user.username})
 				// res.redirect('/')
 			} else {
 				res.json({ msg: 'Password does not match' })
