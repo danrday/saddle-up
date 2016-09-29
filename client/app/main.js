@@ -16,5 +16,9 @@ const app = angular
 				controller: 'RegisterCtrl',
 				templateUrl: 'partials/register.html'
 			})
+			.when('/profile', {
+				controller: 'ProfileCtrl',
+				templateUrl: 'partials/profile.html'
+			})
 			.otherwise('/')
 	})

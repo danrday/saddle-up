@@ -1,6 +1,8 @@
 'use strict';
 
 app.controller('AvailableCtrl', function($scope, $http, $location, UserFactory) {
+  
+  $scope.userList = [];
 
   const currentUser = UserFactory.getCurrentUsername();
   /////////////////////////////////////////
@@ -8,19 +10,32 @@ app.controller('AvailableCtrl', function($scope, $http, $location, UserFactory) 
   /////////////////////////////////////////
   //Load users to page
   const loadPage = () => {
-    UserFactory.loadUserList()
-    .then((list) => console.log("Test", list.data));
 
-  //     //Filter the users and do not display disliked users for the current user
-  //     console.log("Test list", list);
-  //     // list.forEach((each) => {
-  //     //   $scope.userList = each.disliked.filter((user) => {}
-  //     //     return  $scope.username !== user.username
-  //     //   });
-  //     // })
-  //   });
-  // };
-  };
+    UserFactory
+      .getCurrentUser('studmuffin')
+      .then(({data}) => {
+        $scope.currentUser = data
+      })
+
+    UserFactory.loadUserList()
+      .then(({data}) => {
+        // ^^^^^^^^^^^^
+        // returned entire user list from database as "data"
+
+        // loop through current user's dislikeduser array
+        $scope.currentUser.dislikedusers.forEach((username) => {
+          // filter user list array
+          $scope.userList = data.filter((user) => {
+            // if username of user in data array does not match
+            // username if disliked user array, return user
+            // to user list array
+            if(user.username !== username) {
+              return user
+            }         
+          })
+        })
+      });
+  }
   loadPage();
   /////////////////////////////////////////
 
@@ -48,32 +63,5 @@ app.controller('AvailableCtrl', function($scope, $http, $location, UserFactory) 
     // .catch(console.error)
   };
   /////////////////////////////////////////
-
-
-  $scope.userList = [
-  {
-    username: 'Greg',
-    species: 'Stud',
-    seeking: 'Steed',
-    location: 'Location 1',
-    description: 'My name is greg'
-  },
-  {
-    username: 'Greg',
-    species: 'Stud',
-    seeking: 'Steed',
-    location: 'Location 1',
-    description: 'My name is greg'
-  },
-  {
-    username: 'Greg',
-    species: 'Stud',
-    seeking: 'Steed',
-    location: 'Location 1',
-    description: 'My name is greg'
-  }
-  ];
-
-
 
 });//End AvailableCtrl
