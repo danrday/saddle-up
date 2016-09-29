@@ -1,10 +1,10 @@
 <div class="row">
-  <div class="col s4 grey center-align" ng-repeat='user in userList'>
+  <div class="col s4 grey center-align user-card" ng-repeat='user in userList'>
     <h4>{{user.username}}</h4>
-    <p>{{user.species}} seeking {{user.seeking}}</p>
-    <p>{{user.description}}</p>
-    <p>{{user.location}}</p>
-    <i class="material-icons green-text" ng-click="likeUser()">favorite_outline</i>
-    <i class="material-icons red-text" ng-click="dislikeUser()">cancel</i>
+    <p>Interests: {{user.species}} seeking {{user.seeking}}</p>
+    <p>About Me: {{user.description}}</p>
+    <p>Where I live: {{user.location}}</p>
+    <i class="material-icons green-text" ng-click="likeUser(user)">favorite_outline</i>
+    <i class="material-icons red-text" ng-click="dislikeUser(user)">cancel</i>
   </div>
 </div>
