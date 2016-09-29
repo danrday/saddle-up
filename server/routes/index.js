@@ -108,7 +108,7 @@ router.post('/register', ({ body: { username, password, confirmation } }, res, e
 				}
 			})
 			.then(hash => User.create({ username, password: hash }))
-			.then(() => res.json({ msg: 'User created' })
+			.then(() => res.json({ msg: 'User created' }))
 			.catch(err)
 	} else {
 		res.json({ msg: "Password & password confirmation do not match" })
