@@ -20,6 +20,7 @@ const User = require('../models/user')
 router.post('/login', ({ session, body: { username, password } }, res, err) => {
 	User.findOne({ username })
 		.then(user => {
+			console.log("USER:", user)
 			if (user) {
 				return new Promise((resolve, reject) => {
 					bcrypt.compare(password, user.password, (err, matches) => {
@@ -31,12 +32,15 @@ router.post('/login', ({ session, body: { username, password } }, res, err) => {
 					})
 				})
 			} else {
+				console.log("USER")
 				res.json({ msg: 'User name does not exist in our system' })
 			}
 		})
 		.then((matches) => {
 			if (matches) {
 				session.username = username
+				console.log("SESSION.USERNAME", session.username)
+				res.json({msg: matches})
 				// res.redirect('/')
 			} else {
 				res.json({ msg: 'Password does not match' })
@@ -49,7 +53,7 @@ router.post('/login', ({ session, body: { username, password } }, res, err) => {
 //   res.render('register')
 // )
 
-router.post('/register', ({ body: { username, password, confirmation } }, res, err) => {
+router.post('/register', ({ body: { username, email, password, location, species, seeking, description, confirmation } }, res, err) => {
 	if (password === confirmation) {
 		User.findOne({ username })
 			.then(user => {
@@ -67,7 +71,7 @@ router.post('/register', ({ body: { username, password, confirmation } }, res, e
 					})
 				}
 			})
-			.then(hash => User.create({ username, password: hash }))
+			.then(hash => User.create({ username, email, password: hash, location, species, seeking, description }))
 			.then(() => res.json({ msg: 'User created' }))
 			.catch(err)
 	} else {

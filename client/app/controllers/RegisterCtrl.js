@@ -9,6 +9,7 @@ app.controller('RegisterCtrl', function($scope, $http, $location) {
 	$scope.login = function() {
 	const user = {
 		username: $scope.username,
+		email: $scope.email,
 		password: $scope.password,
 		location: $scope.location,
 		species:  $scope.species,
