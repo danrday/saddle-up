@@ -6,6 +6,8 @@ app.controller('ProfileCtrl', function($scope, UserFactory) {
 
   const loadPage = () => {
 
+    let username = UserFactory.getCurrentUsername()
+
     UserFactory.getCurrentUser('studmuffin')
     .then(({data}) => {
       $scope.currentUser = data
