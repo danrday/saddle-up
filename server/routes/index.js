@@ -12,46 +12,6 @@ const User = require('../models/user')
 // )
 
 
-router.get('/api/allusers', (req, res, err) => {
-	User
-	.find()
-	.then(users => res.json(users))
-	.catch(err)
-})
-
-
-router.get('/api/:username', (req, res, err) => {
-	const Username = req.params.username
-	User
-	.findOne({ username: Username })
-	.then(user =>
-	res.json(user))
-	.catch(err)
-})
-
-router.put('/api/like/:username/:likedusername', (req, res, err) => {
-	const Username = req.params.username
-	const LikedUser = req.params.likedusername
-	console.log("USERNAME, LIKEDUSER", Username, LikedUser)
-	User
-	.findOneAndUpdate({ username: Username }, { $push: { likedusers: LikedUser }})
-	.then(user =>
-	res.json(user))
-	.catch(err)
-})
-
-
-router.put('/api/dislike/:username/:dislikedusername', (req, res, err) => {
-	const Username = req.params.username
-	const DislikedUser = req.params.dislikedusername
-	console.log("USERNAME, LIKEDUSER", Username, DislikedUser)
-	User
-	.findOneAndUpdate({ username: Username }, { $push: { dislikedusers: DislikedUser }})
-	.then(user =>
-	res.json(user))
-	.catch(err)
-})
-
 
 // router.get('/login', (req, res) =>
 //   res.render('login')
@@ -124,6 +84,7 @@ router.post('/register', ({ body: { username, password, confirmation } }, res, e
 
 
 // login guard middleware
+//above all login routes
 router.use((req, res, next) => {
 	if (req.session.username) {
 		next()
@@ -131,6 +92,52 @@ router.use((req, res, next) => {
 		res.status(400).send({ code: 400, status: 'No current sesssion - please login' })
 	}
 })
+
+router.get('/api/allusers', (req, res, err) => {
+	User
+	.find()
+	.then(users => res.json(users))
+	.catch(err)
+})
+
+
+router.get('/api/:username', (req, res, err) => {
+	const Username = req.params.username
+	User
+	.findOne({ username: Username })
+	.then(user =>
+	res.json(user))
+	.catch(err)
+})
+
+router.put('/api/like/:username/:likedusername', (req, res, err) => {
+	const Username = req.params.username
+	const LikedUser = req.params.likedusername
+	console.log("USERNAME, LIKEDUSER", Username, LikedUser)
+	User
+	.findOneAndUpdate({ username: Username }, { $push: { likedusers: LikedUser }})
+	.then(user =>
+	res.json(user))
+	.catch(err)
+})
+
+
+router.put('/api/dislike/:username/:dislikedusername', (req, res, err) => {
+	const Username = req.params.username
+	const DislikedUser = req.params.dislikedusername
+	console.log("USERNAME, LIKEDUSER", Username, DislikedUser)
+	User
+	.findOneAndUpdate({ username: Username }, { $push: { dislikedusers: DislikedUser }})
+	.then(user =>
+	res.json(user))
+	.catch(err)
+})
+
+
+
+
+
+
 
 // router.get('/logout', (req, res) =>
 //   res.render('logout', { page: 'Logout'})
