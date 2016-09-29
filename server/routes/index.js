@@ -128,7 +128,7 @@ router.use((req, res, next) => {
 	if (req.session.username) {
 		next()
 	} else {
-		rres.status(400).send({ code: 400, status: 'No current sesssion - please login' })
+		res.status(400).send({ code: 400, status: 'No current sesssion - please login' })
 	}
 })
 
