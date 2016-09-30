@@ -5,18 +5,13 @@ const bcrypt = require('bcrypt')
 
 const router = Router()
 const User = require('../models/user')
-// const TestUser = require('../models/testuser')
-
-// router.get('/', (req, res) =>
-//   res.render('index')
-// )
-
-// router.get('/login', (req, res) =>
-//   res.render('login')
-// )
 
 router.get('/currentUser', (req, res, err) => {
-	res.json({username: req.session.username})
+	User
+		.findOne({ username: req.session.username })
+		.then((user) => {
+			res.json(user)
+		})
 })
 
 router.post('/login', ({ session, body: { username, password } }, res, err) => {
@@ -47,10 +42,6 @@ router.post('/login', ({ session, body: { username, password } }, res, err) => {
 		.catch(err)
 })
 
-// router.get('/register', (req, res) =>
-//   res.render('register')
-// )
-
 router.post('/register', ({ body: { username, email, password, location, species, seeking, description, confirmation } }, res, err) => {
 	if (password === confirmation) {
 		User.findOne({ username })
@@ -76,14 +67,6 @@ router.post('/register', ({ body: { username, email, password, location, species
 		res.json({ msg: "Password & password confirmation do not match" })
 	}
 })
-
-// router.post('/logout', (req, res) => {
-//   req.session.destroy(err => {
-//     if (err) throw err
-//     res.redirect('/login')
-//   })
-// })
-
 
 // login guard middleware
 //above all login routes
@@ -144,15 +127,6 @@ router.put('/api/updatelike/:username', (req, res, err) => {
 		})
 		.catch(err)
 })
-
-/*app.put('/api/items/:id', (req, res, err) => {
-	const id = req.params.id
-	const item = req.body
-	Item
-		.findOneAndUpdate({_id: id}, item, { upsert: true })
-		.then(data => res.status(200).json(data))
-		.catch(err)
-})*/
 
 // router.get('/logout', (req, res) =>
 //   res.render('logout', { page: 'Logout'})
