@@ -9,22 +9,13 @@ app.controller('ProfileCtrl', function($scope, UserFactory, $http) {
 
     $http
       .get('/currentUser')
-      .then((data) => {
-        UserFactory.setCurrentUsername(data.data.username)
-      })
-      .then(() => {
-        $scope.currentUser = UserFactory.getCurrentUsername();
-      })
-      .then(() => {
-        UserFactory
-          .getCurrentUser($scope.currentUser)
-          .then(({data}) => {
-            $scope.currentUser = data
-          })
+      .then(({data}) => {
+        $scope.currentUser = data
       })
       .then(() => {
         UserFactory.loadUserList()
         .then(({data}) => {
+          console.log($scope.currentUser)
 
           // ^^^^^^^^^^^^
           // returned entire user list from database as "data"

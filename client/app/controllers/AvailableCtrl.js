@@ -9,18 +9,8 @@ app.controller('AvailableCtrl', function($scope, $http, $location, UserFactory) 
   const loadPage = () => {
     $http
       .get('/currentUser')
-      .then((data) => {
-        UserFactory.setCurrentUsername(data.data.username)
-      })
-      .then(() => {
-        $scope.currentUser = UserFactory.getCurrentUsername();
-      })
-      .then(() => {
-        UserFactory
-          .getCurrentUser($scope.currentUser)
-          .then(({data}) => {
-            $scope.currentUser = data
-          })
+      .then(({data}) => {
+        $scope.currentUser = data
       })
       .then(() => {
         UserFactory.loadUserList()
