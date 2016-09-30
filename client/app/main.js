@@ -2,7 +2,7 @@
 
 const app = angular
 	.module('SaddleUp', ['ngRoute'])
-	.config($routeProvider => {
+	.config(($routeProvider, $locationProvider) => {
 		$routeProvider
 			.when('/', {
 				controller: 'AvailableCtrl',
@@ -29,4 +29,11 @@ const app = angular
 				templateUrl: 'partials/profile.html'
 			})
 			.otherwise('/')
+
+
+			//Cleans up the url, does not use '!#' in url
+			$locationProvider.html5Mode({
+				enabled: true,
+				requireBase: false
+			});
 	})
