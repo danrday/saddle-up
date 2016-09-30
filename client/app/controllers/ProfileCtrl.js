@@ -1,39 +1,56 @@
 'use strict';
 
-app.controller('ProfileCtrl', function($scope, UserFactory) {
+app.controller('ProfileCtrl', function($scope, UserFactory, $http) {
   
-  $scope.userList = []
+  $scope.allUsers = []
 
   const loadPage = () => {
 
-    let username = UserFactory.getCurrentUsername()
-
-    UserFactory.getCurrentUser('studmuffin')
-    .then(({data}) => {
-      $scope.currentUser = data
-      console.log($scope.currentUser)
-    })
-
-    UserFactory.loadUserList()
-    .then(({data}) => {
-      // ^^^^^^^^^^^^
-      // returned entire user list from database as "data"
-
-      // loop through current user's dislikeduser array
-      $scope.currentUser.likedusers.forEach((username) => {
-        // filter user list array
-        $scope.userList = data.filter((user) => {
-          // if username of user in data array does not match
-          // username if disliked user array, return user
-          // to user list array
-          if(user.username === username) {
-            return user
-          }         
-        })
+    $http
+      .get('/currentUser')
+      .then((data) => {
+        UserFactory.setCurrentUsername(data.data.username)
       })
-    });
+      .then(() => {
+        $scope.currentUser = UserFactory.getCurrentUsername();
+      })
+      .then(() => {
+        UserFactory
+          .getCurrentUser($scope.currentUser)
+          .then(({data}) => {
+            $scope.currentUser = data
+          })
+      })
+      .then(() => {
+        UserFactory.loadUserList()
+        .then(({data}) => {
 
+          console.log(data)
+          // ^^^^^^^^^^^^
+          // returned entire user list from database as "data"
+          $scope.currentUser.likedusers.forEach((likedUser) => {
+            data.forEach((user, index) => {
+              console.log('LIKED',likedUser)
+              console.log('ALL',user.username)
+              if(user.username === likedUser) {
+                $scope.allUsers.push(user)
+              }
+            })
+          })
+        });
+      })
+
+    $scope.dislikeUser = (user) => {
+      const dislikedUser = user.username;
+      $http
+      .put(`api/dislike/${$scope.currentUser.username}/${dislikedUser}`)
+      .then((data) => {
+        console.log(data)
+        loadPage()
+        //Run the page load display function
+      })
+      .catch(console.error)
+    };
   };
   loadPage();
-
 })
