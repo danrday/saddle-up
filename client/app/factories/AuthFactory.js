@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('LoginFactory', function($http, $q) {
+app.factory('AuthFactory', function($http, $q) {
 
   /////////////////////////////////////////
   // Call to server to verify user in db
@@ -15,11 +15,17 @@ app.factory('LoginFactory', function($http, $q) {
         }
       })
     })//End promise
-   }
+  };//End login()
+
+
+  //Post to '/logout' server route
+  const logout = () => {
+      $http.post('/logout').then(console.log("Logged out"));
+  };//End logout()
   /////////////////////////////////////////
-  
+
 
   /////////////////////////////////////////
-  return { login };
+  return { login, logout };
 
 });//End of CurrentUsernameFactory()

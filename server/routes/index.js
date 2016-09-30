@@ -128,8 +128,12 @@ router.put('/api/updatelike/:username', (req, res, err) => {
 		.catch(err)
 })
 
-// router.get('/logout', (req, res) =>
-//   res.render('logout', { page: 'Logout'})
-// )
+
+//Destroy current users session
+router.post('/logout', (req, res) => {
+  req.session.destroy(err => {
+    if (err) throw err
+  });
+});
 
 module.exports = router

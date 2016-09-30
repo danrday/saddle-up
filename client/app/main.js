@@ -16,6 +16,10 @@ const app = angular
 				controller: 'LoginCtrl',
 				templateUrl: 'partials/login.html'
 			})
+			.when('/logout', {
+				controller: 'LogoutCtrl',
+				templateUrl: 'partials/logout.html'
+			})
 			.when('/register', {
 				controller: 'RegisterCtrl',
 				templateUrl: 'partials/register.html'
