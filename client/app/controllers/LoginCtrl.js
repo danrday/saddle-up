@@ -1,22 +1,28 @@
 'use strict';
 
-app.controller('LoginCtrl', function($scope, $http, $location, $routeParams, UserFactory) {
+app.controller('LoginCtrl', function($scope, $http, $location, $routeParams, UserFactory, LoginFactory) {
 
+	//Message to show for failed login
 	$scope.failedLogin = true;
+	/////////////////////////////////////////
 
+
+	/////////////////////////////////////////
+	//User login functionality
 	$scope.login = function() {
 		const user = {
 			username: $scope.username,
 			password: $scope.password
 		}
 
-
-		$http
-		 .post('/login', user)
+		//Call to server for user verification
+		LoginFactory.login(user)
 		 .then(data => {
-			 console.log("Test data", data.data.user);
+			 	//If user exists sign them in
 			 	if (data.data.user) {
 					$location.path('/');
+				//If user does not exist
+				//Reset form and show error message
 				} else {
 					$scope.username = "";
 					$scope.password = "";
@@ -26,5 +32,6 @@ app.controller('LoginCtrl', function($scope, $http, $location, $routeParams, Use
 		.catch(console.error)
 
 	}
+	/////////////////////////////////////////
 
-})
+});//End loginCtrl
