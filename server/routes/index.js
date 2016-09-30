@@ -134,6 +134,26 @@ router.put('/api/dislike/:username/:dislikedusername', (req, res, err) => {
 	.catch(err)
 })
 
+router.put('/api/updatelike/:username', (req, res, err) => {
+	const Username = req.params.username
+	const updateLikes = req.body
+	User
+		.findOneAndUpdate({ username: Username }, { $set: { likedusers: updateLikes } })
+		.then(user => {
+			res.json(user)
+		})
+		.catch(err)
+})
+
+/*app.put('/api/items/:id', (req, res, err) => {
+	const id = req.params.id
+	const item = req.body
+	Item
+		.findOneAndUpdate({_id: id}, item, { upsert: true })
+		.then(data => res.status(200).json(data))
+		.catch(err)
+})*/
+
 // router.get('/logout', (req, res) =>
 //   res.render('logout', { page: 'Logout'})
 // )

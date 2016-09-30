@@ -3,6 +3,7 @@
 app.controller('ProfileCtrl', function($scope, UserFactory, $http) {
   
   $scope.allUsers = []
+  let newLikedUsers = []
 
   const loadPage = () => {
 
@@ -25,13 +26,10 @@ app.controller('ProfileCtrl', function($scope, UserFactory, $http) {
         UserFactory.loadUserList()
         .then(({data}) => {
 
-          console.log(data)
           // ^^^^^^^^^^^^
           // returned entire user list from database as "data"
           $scope.currentUser.likedusers.forEach((likedUser) => {
             data.forEach((user, index) => {
-              console.log('LIKED',likedUser)
-              console.log('ALL',user.username)
               if(user.username === likedUser) {
                 $scope.allUsers.push(user)
               }
@@ -40,17 +38,23 @@ app.controller('ProfileCtrl', function($scope, UserFactory, $http) {
         });
       })
 
-    $scope.dislikeUser = (user) => {
-      const dislikedUser = user.username;
-      $http
-      .put(`api/dislike/${$scope.currentUser.username}/${dislikedUser}`)
-      .then((data) => {
-        console.log(data)
-        loadPage()
-        //Run the page load display function
-      })
-      .catch(console.error)
-    };
   };
   loadPage();
+
+  $scope.dislikeUser = (user) => {
+    const dislikedUser = user.username;
+    newLikedUsers = $scope.currentUser.likedusers
+    newLikedUsers.forEach((likedUser, index) => {
+      if(likedUser === dislikedUser)
+      newLikedUsers.splice(index, 1)
+    })
+    $http
+    .put(`api/updatelike/${$scope.currentUser.username}`, newLikedUsers)
+    .then((data) => {
+      $scope.allUsers = []
+      loadPage()
+      //Run the page load display function
+    })
+    .catch(console.error)
+  };
 })
