@@ -21,7 +21,14 @@ app.factory('UserFactory', function($http, $q) {
       $http.get('api/allusers')
       .then((list) => {
         if ( list ) {
-          resolve(list);
+
+          let userListMinusCurrentUser = list.data.filter((user) => {
+            if (user.username !== getCurrentUsername()) {
+              return user;
+            }
+          })
+
+          resolve(userListMinusCurrentUser);
         } else {
           reject(null);
         }
