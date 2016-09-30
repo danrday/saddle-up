@@ -1,6 +1,8 @@
 'use strict';
 
-app.controller('LoginCtrl', function($scope, $http, $location, UserFactory) {
+app.controller('LoginCtrl', function($scope, $http, $location, $routeParams, UserFactory) {
+
+	$scope.failedLogin = true;
 
 	$scope.login = function() {
 		const user = {
@@ -12,10 +14,13 @@ app.controller('LoginCtrl', function($scope, $http, $location, UserFactory) {
 		$http
 		 .post('/login', user)
 		 .then(data => {
-			 	if (data.user) {
+			 console.log("Test data", data.data.user);
+			 	if (data.data.user) {
 					$location.path('/');
 				} else {
-					$location.path('/login');
+					$scope.username = "";
+					$scope.password = "";
+					$scope.failedLogin = false;
 				}
 		 })
 		.catch(console.error)
