@@ -8,20 +8,17 @@ app.controller('LoginCtrl', function($scope, $http, $location, UserFactory) {
 			password: $scope.password
 		}
 
-		//Store current username in user factory
-		UserFactory.setCurrentUsername($scope.username);
-
-		// console.log(user)
-
-		// $location.path('/');
 
 		$http
-			 .post('/login', user)
-			 .then((data) => {
-				 UserFactory.setCurrentUsername(data.data.user);
-					$location.path('/')
-			 })
-			.catch(console.error)
+		 .post('/login', user)
+		 .then(data => {
+			 	if (data.user) {
+					$location.path('/');
+				} else {
+					$location.path('/login');
+				}
+		 })
+		.catch(console.error)
 
 	}
 

@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt')
 const router = Router()
 const User = require('../models/user')
 
-router.get('/currentUser', (req, res, err) => {
+router.get('/currentUserObj', (req, res, err) => {
 	User
 		.findOne({ username: req.session.username })
 		.then((user) => {
