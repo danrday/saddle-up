@@ -1,39 +1,60 @@
 'use strict';
 
-app.controller('ProfileCtrl', function($scope, UserFactory) {
+app.controller('ProfileCtrl', function($scope, UserFactory, $http) {
   
-  $scope.userList = []
+  $scope.allUsers = []
+  let newLikedUsers = []
 
   const loadPage = () => {
 
-    let username = UserFactory.getCurrentUsername()
-
-    UserFactory.getCurrentUser('studmuffin')
-    .then(({data}) => {
-      $scope.currentUser = data
-      console.log($scope.currentUser)
-    })
-
-    UserFactory.loadUserList()
-    .then(({data}) => {
-      // ^^^^^^^^^^^^
-      // returned entire user list from database as "data"
-
-      // loop through current user's dislikeduser array
-      $scope.currentUser.likedusers.forEach((username) => {
-        // filter user list array
-        $scope.userList = data.filter((user) => {
-          // if username of user in data array does not match
-          // username if disliked user array, return user
-          // to user list array
-          if(user.username === username) {
-            return user
-          }         
-        })
+    $http
+      .get('/currentUser')
+      .then((data) => {
+        UserFactory.setCurrentUsername(data.data.username)
       })
-    });
+      .then(() => {
+        $scope.currentUser = UserFactory.getCurrentUsername();
+      })
+      .then(() => {
+        UserFactory
+          .getCurrentUser($scope.currentUser)
+          .then(({data}) => {
+            $scope.currentUser = data
+          })
+      })
+      .then(() => {
+        UserFactory.loadUserList()
+        .then(({data}) => {
+
+          // ^^^^^^^^^^^^
+          // returned entire user list from database as "data"
+          $scope.currentUser.likedusers.forEach((likedUser) => {
+            data.forEach((user, index) => {
+              if(user.username === likedUser) {
+                $scope.allUsers.push(user)
+              }
+            })
+          })
+        });
+      })
 
   };
   loadPage();
 
+  $scope.dislikeUser = (user) => {
+    const dislikedUser = user.username;
+    newLikedUsers = $scope.currentUser.likedusers
+    newLikedUsers.forEach((likedUser, index) => {
+      if(likedUser === dislikedUser)
+      newLikedUsers.splice(index, 1)
+    })
+    $http
+    .put(`api/updatelike/${$scope.currentUser.username}`, newLikedUsers)
+    .then((data) => {
+      $scope.allUsers = []
+      loadPage()
+      //Run the page load display function
+    })
+    .catch(console.error)
+  };
 })
