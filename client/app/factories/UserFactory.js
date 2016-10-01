@@ -4,24 +4,37 @@ app.factory('UserFactory', function($http, $q) {
 
   /////////////////////////////////////////
   //Save current user
-  let currentUser;
-
-  const setCurrentUsername = (name) => {
-    currentUser = name;
-  };
-
-  const getCurrentUsername = () => currentUser;
+  const getCurrentUserObj = () => {
+    return $q((resolve, reject) => {
+      $http
+        .get('/currentUserObj')
+        .then(({data}) => {
+          if (data) {
+            resolve(data);
+          } else {
+            reject(null);
+          }
+        })
+    })//End promise
+  }
   /////////////////////////////////////////
 
   /////////////////////////////////////////
   //Get all users from the db
-  const loadUserList = function() {
+  const loadUserList = function(currentUsername) {
 
     return $q((resolve, reject) => {
       $http.get('api/allusers')
       .then((list) => {
-        if ( list ) {
-          resolve(list);
+        if (list) {
+
+          let userListMinusCurrentUser = list.data.filter((user) => {
+            if (user.username !== currentUsername) {
+              return user;
+            }
+          })
+
+          resolve(userListMinusCurrentUser);
         } else {
           reject(null);
         }
@@ -34,25 +47,6 @@ app.factory('UserFactory', function($http, $q) {
 
 
   /////////////////////////////////////////
-  //Get the current users obj from db
-  const getCurrentUser = function(username) {
-
-    return $q((resolve, reject) => {
-      $http.get(`api/${username}`)
-      .then((list) => {
-        if ( list ) {
-          resolve(list);
-        } else {
-          reject(null);
-        }
-      })
-      .catch(console.error);
-    });
-
-  };
-  /////////////////////////////////////////
-
-  /////////////////////////////////////////
-  return { loadUserList, getCurrentUser, setCurrentUsername, getCurrentUsername };
+  return { loadUserList, getCurrentUserObj };
 
 });

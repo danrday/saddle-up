@@ -1,20 +1,17 @@
 'use strict';
 
 app.controller('AvailableCtrl', function($scope, $http, $location, UserFactory) {
-  
+
   /////////////////////////////////////////
 
   /////////////////////////////////////////
   //Load users to page
   const loadPage = () => {
-    $http
-      .get('/currentUser')
-      .then(({data}) => {
-        $scope.currentUser = data
-      })
-      .then(() => {
-        UserFactory.loadUserList()
-          .then(({data}) => {
+    UserFactory.getCurrentUserObj()
+      .then((user) => {
+        $scope.currentUser = user;
+        UserFactory.loadUserList(user.username)
+          .then((data) => {
             $scope.currentUser.dislikedusers.forEach((dislikedUser) => {
               data.forEach((user, index) => {
                 if(user.username === dislikedUser) {

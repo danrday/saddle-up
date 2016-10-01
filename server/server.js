@@ -14,10 +14,8 @@ const app = express()
 const port = process.env.PORT || 3000
 app.set('port', port)
 
-// app.locals.company = 'app.locals.company'
-// app.locals.errors = {} // errors & body added to avoid guard statements
-// app.locals.body = {} // i.e. value=(body && body.name) vs. value=body.name
 
+/////////////////////////////////////////
 // middlewares
 
 app.use(express.static('client'))
@@ -28,25 +26,27 @@ app.use(session({
   }),
   secret: 'saddleupsecretsalt'
 }))
-
-// app.use((req, res, next) => {
-//   app.locals.email = req.session.email
-//   next()
-// })
-
-// app.use(({ method, url, headers: { 'user-agent': agent } }, res, next) => {
-//   const timeStamp = new Date()
-//   console.log(`[${timeStamp}] "${cyan(`${method} ${url}`)}" "${agent}"`)
-//   next()
-// })
-
-
 app.use(bodyParser.json())
 
+/////////////////////////////////////////
 // routes
 app.use(routes)
+/////////////////////////////////////////
 
 
+/////////////////////////////////////////
+//HTML5MODE middleware for any 'api' routes and alternate routes
+app.use('/api', (req, res) => {
+  res.status(404).send({message: 'Not found'});
+});
+
+app.use((req, res) => {
+  res.sendFile(process.cwd() + '/client/index.html');
+});
+/////////////////////////////////////////
+
+
+/////////////////////////////////////////
 // Error handling middleware
 app.use((
     err,
@@ -71,7 +71,10 @@ app.use((
     console.error(err.stack)
   }
 )
+/////////////////////////////////////////
 
+
+/////////////////////////////////////////
 // Listen to requests on the provided port and log when available
 connect()
   .then(() => {
@@ -80,3 +83,4 @@ connect()
     )
   })
   .catch(console.error)
+/////////////////////////////////////////

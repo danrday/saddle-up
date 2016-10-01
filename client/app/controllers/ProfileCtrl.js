@@ -1,26 +1,23 @@
 'use strict';
 
 app.controller('ProfileCtrl', function($scope, UserFactory, $http) {
-  
+
   $scope.allUsers = []
   let newLikedUsers = []
 
+  /////////////////////////////////////////
+  //Function to load users profiles on pageloade
   const loadPage = () => {
-
-    $http
-      .get('/currentUser')
-      .then(({data}) => {
-        $scope.currentUser = data
-      })
-      .then(() => {
-        UserFactory.loadUserList()
-        .then(({data}) => {
-          console.log($scope.currentUser)
-
-          // ^^^^^^^^^^^^
-          // returned entire user list from database as "data"
+    //Return the current users object from db
+    UserFactory.getCurrentUserObj()
+      .then((user) => {
+        $scope.currentUser = user;
+        // Returned entire user list from database as "data"
+        UserFactory.loadUserList(user.username)
+        .then((data) => {
+          //Return only the users that are like by the current user
           $scope.currentUser.likedusers.forEach((likedUser) => {
-            data.forEach((user, index) => {
+            data.forEach((user) => {
               if(user.username === likedUser) {
                 $scope.allUsers.push(user)
               }
@@ -31,6 +28,9 @@ app.controller('ProfileCtrl', function($scope, UserFactory, $http) {
 
   };
   loadPage();
+  /////////////////////////////////////////
+
+
 
   $scope.dislikeUser = (user) => {
     const dislikedUser = user.username;
@@ -39,6 +39,7 @@ app.controller('ProfileCtrl', function($scope, UserFactory, $http) {
       if(likedUser === dislikedUser)
       newLikedUsers.splice(index, 1)
     })
+
     $http
     .put(`api/updatelike/${$scope.currentUser.username}`, newLikedUsers)
     .then((data) => {
